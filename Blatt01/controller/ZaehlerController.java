@@ -9,6 +9,9 @@ import java.awt.event.ActionListener;
 import model.ZaehlerModel;
 import view.ZaehlerView;
 
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+
 /**
  * @author Nicolas Neubauer
  * 
@@ -48,24 +51,41 @@ public class ZaehlerController {
 
 				// Button
 				if (e.getSource() == view.getUp()) {
-					if(model.getMax() != aktWert)
-						model.setWert(aktWert + 1);
-					else
-						throw new IllegalArgumentException("Wert darf nicht über " + model.getMax() + " erhöht werden.");
+					try {
+                        model.setWert(aktWert + 1);
+                    }catch (IllegalArgumentException eMax){
+                        view.getResult().setText("Wert darf nicht über " + model.getMax() + " erhöht werden.");
+                    }
+
 				}
 
 				if (e.getSource() == view.getDown()){
-					if(model.getMin() != aktWert)
-						model.setWert(aktWert - 1);
-					else
-						throw new IllegalArgumentException("Wert darf nicht unter " + model.getMin() + " fallen.");
+					try {
+                        model.setWert(aktWert - 1);
+                    }catch (IllegalArgumentException eMin){
+                        view.getResult().setText("Wert darf nicht unter " + model.getMin() + " fallen.");
+                    }
 				}
+
+				//Label muss noch den neuen Wert erfahren
+				view.getResult().setText(String.valueOf(model.getWert()));
 			}
 		};
 
 		// Hänge die Listener an die View-Componenten
 		view.getUp().addActionListener(a);
 		view.getDown().addActionListener(a);
+
+        ChangeListener slideAction = new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                model.setWert(view.getSlider().getValue());
+                //Label muss noch den neuen Wert erfahren
+                view.getResult().setText(String.valueOf(model.getWert()));
+            }
+        };
+
+        view.getSlider().addChangeListener(slideAction);
 
 	}
 
