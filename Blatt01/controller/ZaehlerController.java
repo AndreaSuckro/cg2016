@@ -87,6 +87,20 @@ public class ZaehlerController {
 
         view.getSlider().addChangeListener(slideAction);
 
+        ActionListener textA = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(e.getSource() == view.getEingabe()){
+                    try {
+                        
+                    }catch (IllegalArgumentException illarg){
+                        view.getResult().setText("Der eingegebene Wert ist ungültig");
+                    }
+                }
+            }
+        };
+        view.getEingabe().addActionListener(textA);
+
 	}
 
 	/**
