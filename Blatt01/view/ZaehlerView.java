@@ -29,6 +29,7 @@ public class ZaehlerView extends JPanel implements Observer {
 	private JLabel result;
 	private JSlider slider;
 	private JTextField eingabe;
+	private JLabel errorMsg;
 
 	/**
 	 * Legt die View an.
@@ -49,6 +50,7 @@ public class ZaehlerView extends JPanel implements Observer {
 	    result = new JLabel("", JLabel.CENTER);
 	    slider = new JSlider();
 		eingabe = new JTextField();
+		errorMsg = new JLabel("",JLabel.CENTER);
 		
 	    //Schriftart des JLabels
 	    Font font = new Font("SansSerif", Font.BOLD, 30);
@@ -60,6 +62,7 @@ public class ZaehlerView extends JPanel implements Observer {
 		this.add(slider);
 		this.add(down);
 		this.add(eingabe);
+		this.add(errorMsg);
 	}
 
 	
@@ -99,6 +102,11 @@ public class ZaehlerView extends JPanel implements Observer {
 	public JTextField getEingabe() {
 		return eingabe;
 	}
+
+	/**
+	 * @return the errorMsg label
+     */
+	public JLabel getErrorMsg() { return errorMsg; }
 
 
 	@Override

@@ -54,7 +54,7 @@ public class ZaehlerController {
 					try {
                         model.setWert(aktWert + 1);
                     }catch (IllegalArgumentException eMax){
-                        view.getResult().setText("Wert darf nicht über " + model.getMax() + " erhöht werden.");
+                        view.getErrorMsg().setText("Wert darf nicht über " + model.getMax() + " erhöht werden.");
                     }
 
 				}
@@ -63,7 +63,7 @@ public class ZaehlerController {
 					try {
                         model.setWert(aktWert - 1);
                     }catch (IllegalArgumentException eMin){
-                        view.getResult().setText("Wert darf nicht unter " + model.getMin() + " fallen.");
+                        view.getErrorMsg().setText("Wert darf nicht unter " + model.getMin() + " fallen.");
                     }
 				}
 
@@ -92,11 +92,14 @@ public class ZaehlerController {
             public void actionPerformed(ActionEvent e) {
                 if(e.getSource() == view.getEingabe()){
                     try {
-                        
-                    }catch (IllegalArgumentException illarg){
-                        view.getResult().setText("Der eingegebene Wert ist ungültig");
+                        model.setWert(Integer.valueOf(view.getEingabe().getText()));
+                        view.getResult().setText(String.valueOf(model.getWert()));
+                    }catch (IllegalArgumentException illArg){ //illArg wird auch fuer fehleingabe als string geworfen
+                        view.getErrorMsg().setText("Der eingegebene Wert ist ungültig.");
                     }
                 }
+                view.getResult().setText(String.valueOf(model.getWert()));
+
             }
         };
         view.getEingabe().addActionListener(textA);
