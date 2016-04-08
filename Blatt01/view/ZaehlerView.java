@@ -11,6 +11,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.JTextField;
+import javax.swing.JComboBox;
+import javax.swing.UIManager;
+import javax.swing.UIManager.LookAndFeelInfo;
 
 /**
  * 
@@ -30,6 +33,8 @@ public class ZaehlerView extends JPanel implements Observer {
 	private JSlider slider;
 	private JTextField eingabe;
 	private JLabel errorMsg;
+	private JComboBox<String> auswahl;
+	private UIManager.LookAndFeelInfo[] looks;
 
 	/**
 	 * Legt die View an.
@@ -51,6 +56,8 @@ public class ZaehlerView extends JPanel implements Observer {
 	    slider = new JSlider();
 		eingabe = new JTextField();
 		errorMsg = new JLabel("",JLabel.CENTER);
+	    auswahl = new JComboBox<String>();
+
 		
 	    //Schriftart des JLabels
 	    Font font = new Font("SansSerif", Font.BOLD, 30);
@@ -63,6 +70,13 @@ public class ZaehlerView extends JPanel implements Observer {
 		this.add(down);
 		this.add(eingabe);
 		this.add(errorMsg);
+		this.add(auswahl);
+		
+		looks = UIManager.getInstalledLookAndFeels(); 
+		for(int i = 0; i < looks.length;i++){
+		   auswahl.addItem(looks[i].getName());
+		   }	
+
 	}
 
 	
@@ -107,6 +121,20 @@ public class ZaehlerView extends JPanel implements Observer {
 	 * @return the errorMsg label
      */
 	public JLabel getErrorMsg() { return errorMsg; }
+	
+	/**
+	 * @return the ComboBox
+	 */
+	public JComboBox getComboBox() {
+		return auswahl;
+	}
+	
+	/**
+	 * @return Look and Feel
+	 */
+	public LookAndFeelInfo[] getLooks(){
+		  return looks;
+		 }
 
 
 	@Override
