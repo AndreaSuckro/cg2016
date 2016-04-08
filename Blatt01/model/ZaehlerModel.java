@@ -49,7 +49,7 @@ public class ZaehlerModel extends Observable {
 		if(wert <= max && wert >= min)
 			this.wert = wert;
 		else throw new IllegalArgumentException("Wert muss im Bereich zwischen " + min + " und " + max + " sein!");
-		System.out.println("Neuer wert gesetzt auf: " + wert);
+		System.out.println("Neuer Wert gesetzt auf: " + wert);
 		notifyObservers();
 	}
 
