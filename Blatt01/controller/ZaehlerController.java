@@ -12,6 +12,12 @@ import view.ZaehlerView;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import javax.swing.JComboBox;
+import javax.swing.UIManager;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager.LookAndFeelInfo;
+import javax.swing.UnsupportedLookAndFeelException;
+
 /**
  * @author Nicolas Neubauer
  * 
@@ -71,10 +77,39 @@ public class ZaehlerController {
 				view.getResult().setText(String.valueOf(model.getWert()));
 			}
 		};
+		
+		ActionListener l = new ActionListener() {
+			
+			@Override
+				   public void actionPerformed(ActionEvent e) {
+
+				    if(e.getSource() == view.getComboBox()){
+				      try {
+				       UIManager.setLookAndFeel(view.getLooks()[view.getComboBox().getSelectedIndex()].getClassName());
+				       view.repaint();
+				      } catch (UnsupportedLookAndFeelException e1) {
+				       // TODO Auto-generated catch block
+				       e1.printStackTrace();
+				      } catch (ClassNotFoundException e1) {
+				       // TODO Auto-generated catch block
+				       e1.printStackTrace();
+				      } catch (InstantiationException e1) {
+				       // TODO Auto-generated catch block
+				       e1.printStackTrace();
+				      } catch (IllegalAccessException e1) {
+				       // TODO Auto-generated catch block
+				       e1.printStackTrace();
+				      }
+				    }
+				    
+				   }
+	     };
 
 		// Hänge die Listener an die View-Componenten
 		view.getUp().addActionListener(a);
 		view.getDown().addActionListener(a);
+		view.getComboBox().addActionListener(l);
+
 
         ChangeListener slideAction = new ChangeListener() {
             @Override
